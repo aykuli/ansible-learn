@@ -1,0 +1,61 @@
+---
+- name: Preconfig
+  hosts: demo
+  tasks:
+    - name: Installing Docker
+      block:
+        - name: Adding universe
+          yum_repository:
+            description: "EPEL YUM repo"
+            baseurl: https://download.docker.com/linux/centos/docker-ce.repo
+            state: present
+
+        - name: Install additional packages
+          yum:
+            name:
+              - yum-utils
+            update_cache: yes
+
+        - name: Adding keys
+          rpm_key:
+            key: 060A 61C5 1B55 8A7F 742B 77AA C52F EB6B 621E 9F35
+
+        - name: Install docker-ce
+          yum:
+            name:
+              - docker-ce
+              - docker-ce-cli
+              - containerd.io
+              - docker-compose-plugin
+            update_cache: yes
+        - name: Chech if docker installed and reboot
+          service:
+            name: docker
+            state: restarted
+            enabled: yes
+
+    - name: Installing docker-compose
+      block:
+        - name: Getting last version of docker-compose
+          uri:
+            url: https://api.github.com/repos/docker/compose/releases/latest
+            body_format: json
+          register: packages
+
+        - name: Installing docker-compose
+          get_url:
+            url: "https://github.com/docker/compose/releases/download/{{ page.json.tag_name }}/docker-compose-Linux-x86_64"
+            dest: /usr/local/bin/docker-compose
+            mode: 0755
+
+    - name: End of instalation
+      block:
+        - name: Adding user to the docker group
+          user:
+            name: "{{ ansible_user }}"
+            group: docker
+            append: yes
+
+        - name: Reboot server
+          reboot:
+            test_command: pwd
