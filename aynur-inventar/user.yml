@@ -1,0 +1,30 @@
+---
+- name: user
+  hosts: demo
+  vars:
+    state0: present
+    user: aynur
+  tasks:
+    - name: Preconfig block
+      block:
+        - name: Create user
+          user:
+            name: "{{ user }}"
+            state: "{{ state0 }}"
+          register: error
+          ignore_errors: false
+
+        - name: Install curl
+          apt:
+            name: curl
+            update-cache: yes
+          register: error
+      when: ansible_facts['distribution'] == 'CentOS'
+      rescue:
+        - name: Some error print
+          debug:
+            var: error
+      always:
+        - name: Reboot
+          debug:
+            msg: "Rebooting"
