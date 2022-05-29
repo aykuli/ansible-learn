@@ -21,3 +21,17 @@ ansible-playbook -i aynur-inventar/hosts.ini aynur-inventar/user.yml -K
     ansible-vault decrypt group_vars/all/vault.yml
 
     ansible-vault view group_vars/all/vault.yml
+
+    ansible-playbook -i aynur-inventar/cluster all.yml --tags "deploy" --ask-vault-pass
+
+    ansible-vault encrypt group_vars/all/vault.yml --vault-id dev@prompt
+
+Encrypt/decrypt with password from .pass file
+
+    ansible-vault encrypt group_vars/all/vault.yml --vault-id dev@.pass
+
+    ansible-vault decrypt group_vars/all/vault.yml --vault-id dev@.pass
+
+Using password from .pass file
+
+    ansible-playbook -i aynur-inventar/cluster all.yml --tags "deploy" --vault-id dev@.pass
