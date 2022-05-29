@@ -1,7 +1,4 @@
 ---
-- name: "[{{ name }}] secret configuration"
-  include: "../secret.yml"
-
 - name: "[{{ name }}] service  deploy"
   block:
     - name: "[{{ name }}] secret deploy"
@@ -11,12 +8,7 @@
         state: present
         networks:
           - name: "{{ network_name }}"
-        publish:
-          - mode: ingress
-            protocol: tcp
-            published_port: 3002
-            target_port: 3000
-        secrets:
-          - secret_name: "{{ name }}.env"
-            filename: "/opt/app/.env"
+        env:
+          - RABBITMQ_DEFAULT_USER={{ rmq.user }}
+          - RABBITMQ_DEFAULT_PASS={{ rmq.password }}
   tags: "{{ name }}"

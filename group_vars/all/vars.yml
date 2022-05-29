@@ -5,22 +5,26 @@ rmq_defaults:
   - name: AMQP_USER
     value: "{{ rmq.user }}"
   - name: AMQP_PASSWORD
-    value: "{{ rmq.password}}"
+    value: "{{ rmq.password }}"
   - name: AMQP_HOSTNAME
     value: rmq
 
-registry_name: localhost:5000/
+registry_name: localhost:22/
 
 services:
   - name: api
     version: latest
-  # - name: app_network
-  #   version: latest
-  # - name: converter
-  #   version: latest
-  # - name: rmq
-  #   version: latest
+  - name: app
+    version: latest
+  - name: converter
+    version: latest
+  - name: rmq
+    version: latest
 
 none_build_service:
   - name: rmq
     version: latest
+
+configs:
+  converter:
+    queue: q_imageProcessor
