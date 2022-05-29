@@ -1,18 +1,26 @@
 ---
+rmq_defaults:
+  - name: AMQP_EXCHANGE
+    value: xchg_integration
+  - name: AMQP_USER
+    value: "{{ rmq.user }}"
+  - name: AMQP_PASSWORD
+    value: "{{ rmq.password}}"
+  - name: AMQP_HOSTNAME
+    value: rmq
+
 registry_name: localhost:5000/
 
 services:
   - name: api
     version: latest
-  - name: app_network
-    version: latest
-  - name: converter
-    version: latest
-  - name: rmq
-    version: latest
+  # - name: app_network
+  #   version: latest
+  # - name: converter
+  #   version: latest
+  # - name: rmq
+  #   version: latest
 
 none_build_service:
   - name: rmq
     version: latest
-
-versions:
