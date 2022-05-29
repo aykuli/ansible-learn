@@ -9,7 +9,7 @@ rmq_defaults:
   - name: AMQP_HOSTNAME
     value: rmq
 
-registry_name: localhost:22/
+registry_name: localhost:5000/
 
 services:
   - name: api

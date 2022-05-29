@@ -35,3 +35,7 @@ Encrypt/decrypt with password from .pass file
 Using password from .pass file
 
     ansible-playbook -i aynur-inventar/cluster all.yml --tags "deploy" --vault-id dev@.pass
+
+### Result build
+
+    ansible-playbook -i aynur-inventar/cluster all.yml --tags "build"  -vvv
