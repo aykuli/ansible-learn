@@ -1,0 +1,5 @@
+argument_specs:
+  # roles/myapp/tasks/main.yml entry point
+  main:
+    short_description: Configuring server to work with docker
+    author: Aynur Shauerman

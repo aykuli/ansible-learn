@@ -1,2 +1,2 @@
-[demo]
+[cluster]
 185.26.120.39 ansible_user=root ansible_port=22

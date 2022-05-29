@@ -1,0 +1,9 @@
+---
+- name: All configs
+  hosts: cluster
+  roles:
+    - role: preconfig
+    - role: deploy
+      message: "Hey, how are u doing!"
+    - role: deploy
+      message: "Deploy double!"
