@@ -7,7 +7,7 @@
     - name: "[{{ name }}] secret deploy"
       community.dodcker.docker_swarm_service:
         name: "{{ name }}"
-        image: "localhost:500/{{ name }}:latest"
+        image: "{{ registry_name }}{{ name }}:{{ version }}"
         state: present
         networks:
           - name: "{{ networkName }}"

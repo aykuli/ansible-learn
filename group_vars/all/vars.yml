@@ -1,0 +1,18 @@
+---
+registry_name: localhost:5000/
+
+services:
+  - name: api
+    version: latest
+  - name: app_network
+    version: latest
+  - name: converter
+    version: latest
+  - name: rmq
+    version: latest
+
+none_build_service:
+  - name: rmq
+    version: latest
+
+versions:

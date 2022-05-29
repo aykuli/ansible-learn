@@ -3,7 +3,9 @@
   hosts: deploy
   roles:
     - role: preconfig
-    # - role: deploy
-    #   test: 11001145
-    #   message: "Hey, how are u doing!"
-    #   tags: deploy
+    - role: deploy
+      #   test: 11001145
+      #   message: "Hey, how are u doing!"
+      tags: deploy
+    - role: build
+      tags: build

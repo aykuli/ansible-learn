@@ -1,0 +1,10 @@
+galaxy_info:
+  role_name: build
+  description: Build of mono-repo
+  author: Aynur Shauerman
+  license: MIT
+  min_ansible_version: "2.12"
+  platforms:
+    - name: Centos
+      versions:
+        - all
