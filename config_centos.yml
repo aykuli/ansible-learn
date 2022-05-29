@@ -6,6 +6,7 @@
       block:
         - name: Adding universe
           yum_repository:
+            name: "epel"
             description: "EPEL YUM repo"
             baseurl: https://download.docker.com/linux/centos/docker-ce.repo
             state: present
@@ -16,10 +17,6 @@
               - yum-utils
             update_cache: yes
 
-        - name: Adding keys
-          rpm_key:
-            key: 060A 61C5 1B55 8A7F 742B 77AA C52F EB6B 621E 9F35
-
         - name: Install docker-ce
           yum:
             name:
@@ -28,11 +25,12 @@
               - containerd.io
               - docker-compose-plugin
             update_cache: yes
-        - name: Chech if docker installed and reboot
+        - name: Check if docker installed and reboot
           service:
             name: docker
             state: restarted
             enabled: yes
+      become: yes
 
     - name: Installing docker-compose
       block:
@@ -40,13 +38,15 @@
           uri:
             url: https://api.github.com/repos/docker/compose/releases/latest
             body_format: json
-          register: packages
+            timeout: 90
+          register: page
 
         - name: Installing docker-compose
           get_url:
             url: "https://github.com/docker/compose/releases/download/{{ page.json.tag_name }}/docker-compose-Linux-x86_64"
             dest: /usr/local/bin/docker-compose
             mode: 0755
+      become: yes
 
     - name: End of instalation
       block:
@@ -59,3 +59,4 @@
         - name: Reboot server
           reboot:
             test_command: pwd
+      become: yes

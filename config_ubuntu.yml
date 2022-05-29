@@ -1,6 +1,8 @@
 ---
 - name: Preconfig
   hosts: demo
+  vars:
+    ansible_python_interpreter: /usr/bin/python3.8
   tasks:
     - name: Install docker
       block:
@@ -56,6 +58,7 @@
           uri:
             url: https://api.github.com/repos/docker/compose/releases/latest
             body_format: json
+            timeout: 90
           register: page
 
         - name: Installing docker-compose
