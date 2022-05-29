@@ -4,6 +4,6 @@
   roles:
     - role: preconfig
     - role: deploy
+      test: 11001145
       message: "Hey, how are u doing!"
-    - role: deploy
-      message: "Deploy double!"
+      tags: deploy

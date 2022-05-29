@@ -1,5 +1,12 @@
-argument_specs:
-  # roles/myapp/tasks/main.yml entry point
-  main:
-    short_description: Configuring server to work with docker
-    author: Aynur Shauerman
+galaxy_info:
+  role_name: preconfig
+  description: Configuring server to work with docker
+  author: Aynur Shauerman
+  license: MIT
+  min_ansible_version: 2.12
+  platforms:
+    - name: https://download.docker.com/linux/centos/docker-ce.repo
+      versions:
+        - all
+  dependencies:
+    - role: deploy

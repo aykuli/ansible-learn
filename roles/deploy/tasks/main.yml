@@ -1,0 +1,3 @@
+---
+- name: Deploy task
+  command: "echo {{ test }}"
