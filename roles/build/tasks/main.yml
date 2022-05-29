@@ -9,7 +9,7 @@
   community.docker.docker_image:
     name: "{{ registry_name }}{{ item.name }}"
     tag: "{{ item.version }}"
-    push: yes
+    # push: yes
     source: build
     build:
       path: "{{ git_folder }}"

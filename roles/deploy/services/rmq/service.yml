@@ -2,7 +2,7 @@
 - name: "[{{ name }}] service  deploy"
   block:
     - name: "[{{ name }}] secret deploy"
-      community.dodcker.docker_swarm_service:
+      community.docker.docker_swarm_service:
         name: "{{ name }}"
         image: "{{ registry_name }}{{ name }}:{{ version }}"
         state: present

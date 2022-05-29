@@ -1,11 +1,37 @@
 ---
 - name: "[{{ name }}] secret configuration"
-  include: "../secret.yml"
+  block:
+    - name: "[{{ name }}] secret creating"
+      vars:
+        env_file: "{{ lookup('file', '.env.j2') }}"
+      community.docker.docker_secret:
+        name: "{{ name }}/.env"
+        data: "{{ env_file | b64encode }}"
+        labels:
+          secret: "{{ env_file | hash('sha1') }}"
+        data_is_b64: true
+        state: present
+
+  rescue:
+    - name: "[{{ name }}] deleting service"
+      community.docker.docker_swarm_service:
+        name: "{{ name }}"
+        state: absent
+    - name: "[{{ name }}] secret creating"
+      vars:
+        env_file: "{{ lookup('file', '.env.j2') }}"
+      community.docker.docker_secret:
+        name: "{{ name }}/.env"
+        data: "{{ env_file | b64encode }}"
+        labels:
+          secret: "{{ env_file | hash('sha1') }}"
+        data_is_b64: true
+        state: present
 
 - name: "[{{ name }}] service  deploy"
   block:
     - name: "[{{ name }}] secret deploy"
-      community.dodcker.docker_swarm_service:
+      community.docker.docker_swarm_service:
         name: "{{ name }}"
         image: "{{ registry_name }}{{ name }}:{{ version }}"
         state: present

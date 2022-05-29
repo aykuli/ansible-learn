@@ -2,7 +2,7 @@
 - name: All configs
   hosts: deploy
   roles:
-    - role: preconfig
+    # - role: preconfig
     - role: build
       tags: build
     - role: deploy
