@@ -1,7 +1,15 @@
 ---
-- name: Deploy task
-  command: "echo {{ test }}"
-  register: res
-  changed_when: "'0' not in res.stdout"
-- debug:
-    var: res
+- name: Cycles
+  include_tasks: inner.yml
+  # debug:
+  #   msg: "{{ item.name }} - {{ my_index }} - {{ ansible_loop }}"
+  loop:
+    - name: Vasya
+    - name: Katya
+    - name: Anton
+  loop_control:
+    # label: "{{ item.name }}"
+    # pause: 1
+    # index_var: my_index
+    # extended: yes
+    loop_var: outer_item
