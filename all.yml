@@ -2,7 +2,7 @@
 - name: All configs
   hosts: deploy
   roles:
-    - role: preconfig
+    # - role: preconfig
     - role: deploy
       test: 11001145
       message: "Hey, how are u doing!"

@@ -1,28 +1,11 @@
 ---
-# - name: Cycles
-#   include_tasks: inner.yml
-#   # debug:
-#   #   msg: "{{ item.name }} - {{ my_index }} - {{ ansible_loop }}"
-#   loop:
-#     - name: Vasya
-#     - name: Katya
-#     - name: Anton
-#   loop_control:
-#     # label: "{{ item.name }}"
-#     # pause: 1
-#     # index_var: my_index
-#     # extended: yes
-#     loop_var: outer_item
+- name: Creating network
+  community.docker.docker_network:
+    name: "{{ networkName }}"
+    driver: overlay
 
-- name: Deploy task
+- name: Network deploy
+  include_tasks: "../services/{{ item }}/service.yml"
   vars:
-    name: "some aynurs name"
-  debug:
-    # error="warn" allows to continue without interrupting when error happens
-    # use -vvvvv to see steps:
-    #  ansible-playbook -i aynur-inventar/cluster all.yml --tags "deploy" -vvvvv
-    # msg: "{{ lookup('file', 'main.yml', errors='warn' ) }}"
-    # msg: "{{ lookup('file', '../meta/main.yml', errors='warn' ) }}"
-
-    # search var name everywhere
-    msg: "{{ lookup('vars', 'name') }}"
+    name: "{{ item }}"
+  loop: "{{ services }}"
