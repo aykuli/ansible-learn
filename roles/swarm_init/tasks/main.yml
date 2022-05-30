@@ -5,25 +5,30 @@
     state: absent
   register: token
 
-- name: Check directory
-  local_action:
-    module: file
-    path: ./tokens
-    state: directory
-    mode: "0777"
-  delegate_to: localhost
-  notify: test
+- name: Saving tokens
+  set_facts:
+    token_manager: "{{ token.swarm_facts.JoinTokens.Manager }}"
+    token_worker: "{{ token.swarm_facts.JoinTokens.Worker }}"
+    cachable: true
+# - name: Check directory
+#   local_action:
+#     module: file
+#     path: ./tokens
+#     state: directory
+#     mode: "0777"
+#   delegate_to: localhost
+#   notify: test
 
-- name: Saving manager token
-  local_action:
-    module: copy
-    destination: ./tokens/token-manager
-    mode: "0777"
-    content: "{{ token.swarm_facts.JoinToken.Manager }}"
+# - name: Saving manager token
+#   local_action:
+#     module: copy
+#     destination: ./tokens/token-manager
+#     mode: "0777"
+#     content: "{{ token.swarm_facts.JoinToken.Manager }}"
 
-- name: Saving worker token
-  local_action:
-    module: copy
-    destination: ./tokens/token-worker
-    mode: "0777"
-    content: "{{ token.swarm_facts.JoinToken.Manager }}"
+# - name: Saving worker token
+#   local_action:
+#     module: copy
+#     destination: ./tokens/token-worker
+#     mode: "0777"
+#     content: "{{ token.swarm_facts.JoinToken.Manager }}"
