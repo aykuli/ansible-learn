@@ -11,20 +11,29 @@
       tags: deploy
     - role: swarm_init
       tags: swarm_init
-# - name: Manager
-#   hosts: managers
-#   roles:
-#     - role: preconfig
-#       tags: preconfig
-#     - role: swarm_join
-#       type: manager
-#       tags: swarm_join
+  # - name: Manager
+  #   hosts: managers
+  #   roles:
+  #     - role: preconfig
+  #       tags: preconfig
+  #     - role: swarm_join
+  #       type: manager
+  #       tags: swarm_join
 
-# - name: Worker
-#   hosts: workers
-#   roles:
-#     - role: preconfig
-#       tags: preconfig
-#     - role: swarm_join
-#       type: worker
-#       tags: swarm_join
+  # - name: Worker
+  #   hosts: workers
+  #   roles:
+  #     - role: preconfig
+  #       tags: preconfig
+  #     - role: swarm_join
+  #       type: worker
+  #       tags: swarm_join
+
+  post_tasks:
+    - name: Claen tokens directory
+      file:
+        path: ./tokens
+        state: absent
+      delegate_to: localhost
+      ignore_errors: true
+      tags: swarm_join
