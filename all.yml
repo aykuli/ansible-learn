@@ -9,3 +9,22 @@
       #   test: 11001145
       #   message: "Hey, how are u doing!"
       tags: deploy
+    - role: swarm_init
+      tags: swarm_init
+# - name: Manager
+#   hosts: managers
+#   roles:
+#     - role: preconfig
+#       tags: preconfig
+#     - role: swarm_join
+#       type: manager
+#       tags: swarm_join
+
+# - name: Worker
+#   hosts: workers
+#   roles:
+#     - role: preconfig
+#       tags: preconfig
+#     - role: swarm_join
+#       type: worker
+#       tags: swarm_join

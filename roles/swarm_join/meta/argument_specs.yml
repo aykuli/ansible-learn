@@ -1,0 +1,10 @@
+galaxy_info:
+  role_name: swarm_join
+  description: Joinig of swarm cluster
+  author: Aynur Shauerman
+  license: MIT
+  min_ansible_version: 2.12
+  platforms:
+    - name: Ubuntu
+      versions:
+        - all
