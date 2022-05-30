@@ -1,11 +1,11 @@
-worker_preocesses 2;
+worker_processes 2;
 
 events {worker_connections 1024; }
 
 http {
   server {
     listen 80;
-    server_name image.local;
+    server_name aykuli.ru;
 
     location ~ (/uploads/|/upload) {
       proxy_pass http://api:3000;
