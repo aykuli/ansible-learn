@@ -16,7 +16,7 @@
       dockerfile: "{{ git_folder }}/apps/{{ item.name }}/Dockerfile"
   loop: "{{ services  | difference(none_build_service) }}"
 
-- name: Delete repo"
+- name: Delete repo
   file:
     state: absent
     path: "{{ git_folder }}"

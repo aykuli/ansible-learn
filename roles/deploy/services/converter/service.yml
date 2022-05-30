@@ -5,7 +5,7 @@
       vars:
         env_file: "{{ lookup('file', '.env.j2') }}"
       community.docker.docker_secret:
-        name: "{{ name }}/.env"
+        name: "{{ name }}.env"
         data: "{{ env_file | b64encode }}"
         labels:
           secret: "{{ env_file | hash('sha1') }}"
@@ -20,7 +20,7 @@
       vars:
         env_file: "{{ lookup('file', '.env.j2') }}"
       community.docker.docker_secret:
-        name: "{{ name }}/.env"
+        name: "{{ name }}.env"
         data: "{{ env_file | b64encode }}"
         labels:
           secret: "{{ env_file | hash('sha1') }}"
