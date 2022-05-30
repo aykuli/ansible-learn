@@ -10,15 +10,19 @@
     module: file
     path: ./tokens
     state: directory
+    mode: "0644"
+  delegate_to: localhost
 
 - name: Saving manager token
   local_action:
     module: copy
     destination: ./tokens/token-manager
+    mode: "0644"
     content: "{{ token.swarm_facts.JoinToken.Manager }}"
 
 - name: Saving worker token
   local_action:
     module: copy
     destination: ./tokens/token-worker
+    mode: "0644"
     content: "{{ token.swarm_facts.JoinToken.Manager }}"
