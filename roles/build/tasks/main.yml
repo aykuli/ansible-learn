@@ -3,13 +3,15 @@
   ansible.builtin.git:
     repo: "https://github.com/AlariCode/docker-demo.git"
     dest: "{{ git_folder }}"
-    version: block-7
+    version: block-14
 
 - name: Making image
   community.docker.docker_image:
     name: "{{ registry_name }}{{ item.name }}"
     tag: "{{ item.version }}"
-    # push: yes
+    # push: true
+    force_source: true
+    force_tag: true
     source: build
     build:
       path: "{{ git_folder }}"

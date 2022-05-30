@@ -4,7 +4,7 @@
     - name: "[{{ name }}] secret deploy"
       community.docker.docker_swarm_service:
         name: "{{ name }}"
-        image: "{{ registry_name }}{{ name }}:{{ version }}"
+        image: "rabbitmq:{{ version }}"
         state: present
         networks:
           - name: "{{ network_name }}"
